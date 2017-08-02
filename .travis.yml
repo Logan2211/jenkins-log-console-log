@@ -1,0 +1,19 @@
+services:
+  - docker
+install:
+  - docker build -t jbuild:latest .
+script:
+  - docker run -it --rm -v $(pwd):/build -w /build jbuild:latest bash -c 'mvn package'
+notifications:
+  email: false
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: 4VgHrNgIodYq5aBr88+fxhqLr8es4XbxiWZ/4n8Q2nuL8/RCTkihuDW3frYTDGe8lRhrW/XWKcWvZnoBci1xn7QKGonddnPcFFjZkLXDrfjG+wFgyUvYMYAcTyxZ+WXeAupUa8NNqOeWwTCOJgH/O7N2QIN5civl/hhliyacvuo5Ay8OuejrzCnGsENQGch4t3ZO/Zks4cLkpU3eqtoVf2/KlQyTRFnxPen+TPzOACX8FfefaXR6L5ZUY0/Nd+akgUtpqwtXMkzM4sRcZt0WKBeRp0J6KXHYJG/snHfX1KuoNjndbtxntt5L0L/4xNQTOaQk/dO0qmBmgweTEoyeFJT5tgIBLnkH2wn1QCmS1D9gy422cu4Cn5ID44MtkeSUySoZlV6WGvPxmwMjVjLWW12NWisHRCzWoMbdkb7IbKCa+xYXQZKKvpjaC+zu+c9/mJ96usIiUyVapFUsjxf2LmJok7fzPw1MNEoKw89oWfr9HIcx67nHRx0OJlkJVYCFOy79YRBC486fvVdlI51ziRyHecG6ZzOFBINAxI6DsxDdDBbOp/pgf/JRyIYJN2hx8U7eXqvQ4eHBUHVzWcq+E/enBeNKiQhypQy4p5vSiVnsk+9x6u/IEYTTmp2RtgMdwGSyQIKzV2eRQ1dzaKL3YH4MeZKnyM7uq/SvWZ3gBbA=
+  file:
+    - target/console-log-to-workspace.hpi
+    - target/console-log-to-workspace.jar
+  on:
+    repo: Logan2211/jenkins-log-console-log
+    tags: true
